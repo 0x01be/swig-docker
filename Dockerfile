@@ -1,6 +1,6 @@
 FROM alpine:3.12.0 as builder
 
-ARG SWIG_VERSION=4.1.0
+ENV SWIG_VERSION 4.1.0
 
 RUN apk add --no-cache --virtual build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
