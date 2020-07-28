@@ -30,7 +30,7 @@ RUN apk add --no-cache --virtual runtime-dependencies \
 
 COPY --from=builder /opt/swig/ /opt/swig/
 
-ENV SWIG_DIR /opt/swig/
+ENV SWIG_DIR /opt/swig/share/swig/4.1.0/
 ENV SWIG_EXECUTABLE /opt/swig/bin/swig
 ENV PATH $PATH:/opt/swig/bin/
 
