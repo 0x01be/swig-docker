@@ -21,7 +21,16 @@ RUN make install
 
 FROM alpine:3.12.0
 
+RUN apk add --no-cache --virtual runtime-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    libstdc++ \
+    libpcrecpp
+
 COPY --from=builder /opt/swig/ /opt/swig/
 
+ENV SWIG_DIR /opt/swig/
+ENV SWIG_EXECUTABLE /opt/swig/bin/swig
 ENV PATH $PATH:/opt/swig/bin/
 
