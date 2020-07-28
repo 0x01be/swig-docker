@@ -1,6 +1,6 @@
 FROM alpine:3.12.0 as builder
 
-ENV SWIG_VERSION v3.0.12
+ENV SWIG_VERSION 3.0.12
 
 RUN apk add --no-cache --virtual build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
@@ -13,7 +13,7 @@ RUN apk add --no-cache --virtual build-dependencies \
     pcre-dev \
     byacc
 
-RUN git clone --depth 1 --branch $SWIG_VERSION https://github.com/swig/swig.git /swig
+RUN git clone --depth 1 --branch v$SWIG_VERSION https://github.com/swig/swig.git /swig
 
 WORKDIR /swig
 RUN ./autogen.sh
@@ -32,7 +32,7 @@ RUN apk add --no-cache --virtual runtime-dependencies \
 
 COPY --from=builder /opt/swig/ /opt/swig/
 
-ENV SWIG_DIR /opt/swig/share/swig/4.1.0/
+ENV SWIG_DIR /opt/swig/share/swig/$SWIG_VERSION/
 ENV SWIG_EXECUTABLE /opt/swig/bin/swig
 ENV PATH $PATH:/opt/swig/bin/
 
