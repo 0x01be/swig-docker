@@ -1,11 +1,8 @@
-FROM alpine:3.12.0 as builder
+FROM 0x01be/alpine:edge as builder
 
 ENV SWIG_VERSION 4.0.2
 
-RUN apk add --no-cache --virtual build-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+RUN apk add --no-cache --virtual swig-build-dependencies \
     git \
     build-base \
     autoconf \
@@ -21,12 +18,9 @@ RUN ./configure --prefix=/opt/swig
 RUN make -j$(nbproc)
 RUN make install
 
-FROM alpine:3.12.0
+FROM 0x01be/alpine:edge
 
-RUN apk add --no-cache --virtual runtime-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+RUN apk add --no-cache --virtual swig-runtime-dependencies \
     libstdc++ \
     libpcrecpp
 
