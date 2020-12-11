@@ -1,4 +1,4 @@
-FROM alpine:3.12.2 as builder
+FROM alpine:3.12.2 as build
 
 ENV SWIG_VERSION=3.0.12
 
@@ -24,9 +24,9 @@ RUN apk add --no-cache --virtual swig-runtime-dependencies \
     libstdc++ \
     libpcrecpp
 
-COPY --from=builder /opt/swig/ /opt/swig/
+COPY --from=build /opt/swig/ /opt/swig/
 
-ENV SWIG_DIR /opt/swig/share/swig/$SWIG_VERSION/
-ENV SWIG_EXECUTABLE /opt/swig/bin/swig
-ENV PATH $PATH:/opt/swig/bin/
+ENV SWIG_DIR=/opt/swig/share/swig/${SWIG_VERSION}/ \
+    SWIG_EXECUTABLE=/opt/swig/bin/swig \
+    PATH=${PATH}:/opt/swig/bin/
 
