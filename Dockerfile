@@ -1,6 +1,6 @@
-FROM 0x01be/alpine:edge as builder
+FROM alpine:3.12.2 as build
 
-ENV SWIG_VERSION 4.1.0
+ENV SWIG_VERSION=4.1.0
 
 RUN apk add --no-cache --virtual swig-build-dependencies \
     git \
@@ -18,7 +18,7 @@ RUN ./configure --prefix=/opt/swig
 RUN make -j$(nbproc)
 RUN make install
 
-FROM 0x01be/alpine:edge
+FROM alpine:3.12.2
 
 RUN apk add --no-cache --virtual swig-runtime-dependencies \
     libstdc++ \
