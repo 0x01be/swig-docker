@@ -24,7 +24,7 @@ RUN apk add --no-cache --virtual swig-runtime-dependencies \
     libstdc++ \
     libpcrecpp
 
-COPY --from=builder /opt/swig/ /opt/swig/
+COPY --from=build /opt/swig/ /opt/swig/
 
 ENV SWIG_DIR /opt/swig/share/swig/$SWIG_VERSION/
 ENV SWIG_EXECUTABLE /opt/swig/bin/swig
