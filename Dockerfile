@@ -26,7 +26,7 @@ RUN apk add --no-cache --virtual swig-runtime-dependencies \
 
 COPY --from=build /opt/swig/ /opt/swig/
 
-ENV SWIG_DIR /opt/swig/share/swig/$SWIG_VERSION/
-ENV SWIG_EXECUTABLE /opt/swig/bin/swig
-ENV PATH $PATH:/opt/swig/bin/
+ENV SWIG_DIR /opt/swig/share/swig/${SWIG_VERSION}/ \
+    SWIG_EXECUTABLE=/opt/swig/bin/swig \
+    PATH=${PATH}:/opt/swig/bin/
 
