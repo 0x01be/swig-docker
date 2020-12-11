@@ -1,6 +1,7 @@
 FROM alpine:3.12.2 as build
 
 ENV SWIG_VERSION=3.0.12
+WORKDIR /swig
 
 RUN apk add --no-cache --virtual swig-build-dependencies \
     git \
@@ -8,14 +9,11 @@ RUN apk add --no-cache --virtual swig-build-dependencies \
     autoconf \
     automake \
     pcre-dev \
-    byacc
-
-RUN git clone --depth 1 --branch v$SWIG_VERSION https://github.com/swig/swig.git /swig
-
-WORKDIR /swig
-RUN ./autogen.sh
-RUN ./configure --prefix=/opt/swig
-RUN make -j$(nbproc)
+    byacc &&\
+    git clone --depth 1 --branch v${SWIG_VERSION} https://github.com/swig/swig.git /swig &&\
+    ./autogen.sh &&\
+    ./configure --prefix=/opt/swig &&\
+    make -j$(nbproc)
 RUN make install
 
 FROM alpine:3.12.2
