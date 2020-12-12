@@ -1,4 +1,4 @@
-FROM alpine:3.12.2 as build
+FROM 0x01be/base as build
 
 ENV SWIG_VERSION=3.0.12
 WORKDIR /swig
